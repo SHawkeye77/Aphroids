@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://db12et4q55q84"]
+
+[ext_resource type="Texture2D" uid="uid://h7tpi6l77jgk" path="res://art/laserBolt.png" id="1_03k20"]
+[ext_resource type="Script" path="res://laser_bolt.gd" id="1_dphn4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l3uck"]
+size = Vector2(4, 2)
+
+[node name="LaserBolt" type="Area2D" groups=["laserBolt"]]
+script = ExtResource("1_dphn4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_03k20")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_l3uck")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

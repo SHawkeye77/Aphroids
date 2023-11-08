@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0cig5edyspmh"]
+
+[ext_resource type="Script" path="res://screens/world.gd" id="1_rlavw"]
+[ext_resource type="PackedScene" uid="uid://b4qtu62c6gb7e" path="res://parallax_background.tscn" id="2_ir68c"]
+[ext_resource type="PackedScene" uid="uid://dlhckou7lblby" path="res://volt_cobra.tscn" id="3_nwj0h"]
+[ext_resource type="PackedScene" uid="uid://d4hblppuixnd" path="res://asteroid_spawner.tscn" id="4_rukw8"]
+[ext_resource type="AudioStream" uid="uid://bvl835gxjccha" path="res://audio/exhaust.wav" id="5_a3fqh"]
+[ext_resource type="AudioStream" uid="uid://c1e1mf5vyjvtu" path="res://audio/laserBolt.wav" id="6_cm8n1"]
+[ext_resource type="AudioStream" uid="uid://d1kxltu8x5w1w" path="res://audio/explosion.wav" id="7_w4rjy"]
+
+[node name="World" type="Node2D" groups=["world"]]
+script = ExtResource("1_rlavw")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("2_ir68c")]
+
+[node name="VoltCobra" parent="." instance=ExtResource("3_nwj0h")]
+position = Vector2(508, 275)
+
+[node name="LaserBolts" type="Node2D" parent="." groups=["laserBolts"]]
+unique_name_in_owner = true
+
+[node name="Asteroids" type="Node2D" parent="." groups=["asteroids"]]
+
+[node name="AsteroidSpawner" parent="." instance=ExtResource("4_rukw8")]
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="ExhaustAudio" type="AudioStreamPlayer" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("5_a3fqh")
+volume_db = 20.0
+
+[node name="LaserBoltAudio" type="AudioStreamPlayer" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("6_cm8n1")
+
+[node name="ExplosionAudio" type="AudioStreamPlayer" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("7_w4rjy")
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="SecondTimer" type="Timer" parent="GUILayer"]
+unique_name_in_owner = true
+
+[node name="Control" type="Control" parent="GUILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PointsLabel" type="Label" parent="GUILayer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 15.0
+offset_right = 55.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 30
+text = "-1"
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="GUILayer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_right = -10.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 30
+text = "00:00"
+horizontal_alignment = 1
+
+[connection signal="timeout" from="GUILayer/SecondTimer" to="." method="_on_second_timer_timeout"]

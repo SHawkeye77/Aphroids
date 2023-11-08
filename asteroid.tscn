@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfvuiy86jnj4v"]
+
+[ext_resource type="Texture2D" uid="uid://bjq5xt32jal1" path="res://art/asteroid.png" id="1_58pd4"]
+[ext_resource type="Script" path="res://asteroid.gd" id="1_vs2w6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_row7i"]
+radius = 8.0
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_vs2w6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_58pd4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_row7i")
+
+[node name="DespawnTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

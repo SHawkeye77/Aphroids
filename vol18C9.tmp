@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlhckou7lblby"]
+
+[ext_resource type="Texture2D" uid="uid://ivy52imq4vox" path="res://art/voltCobra.png" id="1_72led"]
+[ext_resource type="Script" path="res://volt_cobra.gd" id="1_p38lg"]
+
+[node name="VoltCobra" type="CharacterBody2D"]
+script = ExtResource("1_p38lg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_72led")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-3, 15, -14, 4, -3, -8, 3, -8, 14, 4, 3, 15)
+
+[node name="ReloadTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
